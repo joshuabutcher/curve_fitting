@@ -39,11 +39,10 @@ Set at the top of the script:
 | `true_curve` | Ground-truth parameters, `[mu, sigma, amp]` per peak |
 | `noise` | Standard deviation of the added noise |
 | `sigma_min` | Minimum peak width, used to set the minimum peak separation in `find_peaks` |
-| `offset` | Starting separation for the two-peak model in the single-peak branch |
-
+| `offset` | Starting separation for the two-peak model in the single-peak branch 
 Peak-detection thresholds are computed from the baseline noise estimate: height at the baseline mean plus 4 standard deviations, prominence at 3.5 standard deviations.
 
-## Known limitations
+## Limitations / Failures
 - **Model selection is partial.** AIC comparison only runs when exactly one peak is detected. With two or more detected peaks, the count is taken as given.
 - **No handling for zero detected peaks.** The script will fail if `find_peaks` returns nothing.
 - **Unseeded noise.** Results change from run to run.
