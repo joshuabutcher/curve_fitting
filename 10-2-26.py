@@ -6,7 +6,7 @@ from scipy.signal import find_peaks
 #returns the y-value of a gaussian peak based on inputted values
 def gaussian (x, mu, sigma, amp):
     if sigma == 0:
-            return "can't divide by 0"
+        sigma = 1 * 10**-6
     else:
         return  (amp  *(np.exp( -((x-mu)**2) / (2*(sigma**2)))))
 
@@ -22,7 +22,7 @@ def n_gaussian (x, *params):
 
 #runs a for loop collecting data from gaussian w start value, end value, total num of data points
 x = np.linspace(0,20,500)
-true_curve = [10,1,8,6,1,6]
+true_curve = [10,0.7,8,6,1.6,6]
 y_true = n_gaussian(x, *true_curve)
 
 #adds random noise to simulate an experimental dataset
@@ -47,11 +47,8 @@ print(f"y peaks: {y_peaks}")
 
 #prints the x and y values along a curve along w the noisy data
 plt.scatter(x, y_noisy, label = "noisy signal")
-plt.xlabel("x")
-plt.ylabel("probability density")
-plt.title("gaussian distribution ")
 
-
+popt = []
 if len(peaks_idx) == 1:
     center = x[peaks_idx[0]]
     height = properties['peak_heights'][0]
@@ -80,7 +77,7 @@ if len(peaks_idx) == 1:
     print(f"double aic: {double_aic}")
 
     #sets popt equal to whichever peak has lower aic
-    if single_aic > double_aic:
+    if single_aic + 10 > double_aic:
          popt,pcov = double_popt, double_pcov
     else:
          popt,pcov = single_popt, single_pcov
