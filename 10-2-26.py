@@ -5,10 +5,9 @@ from scipy.signal import find_peaks
 
 #returns the y-value of a gaussian peak based on inputted values
 def gaussian (x, mu, sigma, amp):
-    if sigma == 0:
-        sigma = 1 * 10**-6
-    else:
-        return  (amp  *(np.exp( -((x-mu)**2) / (2*(sigma**2)))))
+    sigma = max(sigma, 1e-6)
+    
+    return  (amp  *(np.exp( -((x-mu)**2) / (2*(sigma**2)))))
 
 #takes n curves and returns parameters for curve fit
 def n_gaussian (x, *params):
@@ -25,8 +24,9 @@ x = np.linspace(0,20,500)
 true_curve = [10,0.7,8,6,1.6,6]
 y_true = n_gaussian(x, *true_curve)
 
-#adds random noise to simulate an experimental dataset
+#adds repeated random noise to simulate an experimental dataset
 noise = 0.4
+np.random.seed(0) # makes noise stay constant
 y_noisy = y_true + np.random.normal(0,noise, size=x.shape)
 
 #manipulating constraints of find peaks to limit effect of noise
@@ -49,10 +49,14 @@ print(f"y peaks: {y_peaks}")
 plt.scatter(x, y_noisy, label = "noisy signal")
 
 popt = []
+
+if len(peaks_idx) == 0:
+    print(f"noise estimate: {noise_estimate}, height threshold: {height_threshold}")
+    raise RuntimeError("no peaks found by find_peaks")
 if len(peaks_idx) == 1:
     center = x[peaks_idx[0]]
     height = properties['peak_heights'][0]
-    offset = 1  # variable; fails when peaks are sharp and close together
+    offset = 1  # average distance between peaks
     n = len(x)
 
     # tests for single peak fit and error
@@ -77,7 +81,7 @@ if len(peaks_idx) == 1:
     print(f"double aic: {double_aic}")
 
     #sets popt equal to whichever peak has lower aic
-    if single_aic + 10 > double_aic:
+    if single_aic > double_aic:
          popt,pcov = double_popt, double_pcov
     else:
          popt,pcov = single_popt, single_pcov
