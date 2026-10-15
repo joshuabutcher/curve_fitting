@@ -1,4 +1,4 @@
-# Multi‑Peak Gaussian Fitting with AIC Model Selection
+# Multi‑Peak Gaussian Fitting with BIC Model Selection
 
 <img width="640" height="480" alt="curve_fit_ex" src="https://github.com/user-attachments/assets/ba4ae486-addf-47bf-ae0b-8ea0c0fa6d3f" />
 
@@ -10,7 +10,7 @@ This project performs multi‑peak Gaussian fitting on noisy data using SciPy’
 - Peak detection using `scipy.signal.find_peaks`  
 - Automatic parameter initialization from detected peaks  
 - Nonlinear curve fitting with `scipy.optimize.curve_fit`  
-- AIC calculation for model comparison  
+- BIC calculation for model comparison  
 - Plotting of noisy data and fitted curves  
 
 ## Limitations
