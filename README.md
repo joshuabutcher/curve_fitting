@@ -2,7 +2,7 @@
 
 <img width="640" height="480" alt="curve_fit_ex" src="https://github.com/user-attachments/assets/ba4ae486-addf-47bf-ae0b-8ea0c0fa6d3f" />
 
-This project performs multi‑peak Gaussian fitting on noisy data using SciPy’s nonlinear least‑squares optimizer. It detects peaks, builds initial parameter guesses, fits one or more Gaussian components, and compares multi-peak error using BIC (Bayesian Information Criterion).
+This project performs multi‑peak Gaussian fitting on noisy data using SciPy’s nonlinear least‑squares optimizer. It detects peaks, builds initial parameter guesses, fits one or more Gaussian components, and selects from different peak models using BIC (Bayesian Information Criterion).
 
 ## Features
 - Gaussian and multi‑Gaussian model definitions  
@@ -11,13 +11,17 @@ This project performs multi‑peak Gaussian fitting on noisy data using SciPy’
 - Automatic parameter initialization from detected peaks  
 - Nonlinear curve fitting with `scipy.optimize.curve_fit`  
 - BIC calculation for model comparison  
-- Plotting of noisy data and fitted curves  
+- Plotting of noisy data and fitted curves
+- Calculation of peak area and error propagation
 
 ## Limitations
 - when peaks are overlapping to a significant degree, peak estimates will veer off from the true peak
 - noise estimates are hard coded to a wave from 0 < x < 20, so any data that varies from that window requires a manual change to the code
 - currently only tests BIC against reduced number of peaks, never tests adding peaks to what is found
-- only tests the peaks that are closest together
+- only tests manipulating the peaks that are closest together, and uses the amplitude of the taller peak which can result in error
+- hidden peaks not detected by find_peaks are never tested for
 
 ## To-Do
-- add area and error calculations
+- test BIC peak, area, and error calculations over many different seeds
+- add a calibration curve and error propagation
+- test for peaks not identified by find_peaks
