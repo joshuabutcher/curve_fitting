@@ -1,10 +1,8 @@
-# Multi‑Peak Gaussian Fitting with AIC Model Selection
+# Multi‑Peak Gaussian Fitting with BIC Model Selection
 
 <img width="640" height="480" alt="curve_fit_ex" src="https://github.com/user-attachments/assets/ba4ae486-addf-47bf-ae0b-8ea0c0fa6d3f" />
 
-This project performs multi‑peak Gaussian fitting on noisy data using SciPy’s nonlinear least‑squares optimizer. It detects peaks, builds initial parameter guesses, fits one or more Gaussian components, and compares model complexity using the Akaike Information Criterion (AIC).
-
-My current task focuses on generalizing AIC testing to multi‑peak models, allowing automatic selection of the optimal number of Gaussian peaks.
+This project performs multi‑peak Gaussian fitting on noisy data using SciPy’s nonlinear least‑squares optimizer. It detects peaks, builds initial parameter guesses, fits one or more Gaussian components, and compares multi-peak error using BIC (Bayesian Information Criterion).
 
 ## Features
 - Gaussian and multi‑Gaussian model definitions  
@@ -12,11 +10,14 @@ My current task focuses on generalizing AIC testing to multi‑peak models, allo
 - Peak detection using `scipy.signal.find_peaks`  
 - Automatic parameter initialization from detected peaks  
 - Nonlinear curve fitting with `scipy.optimize.curve_fit`  
-- AIC calculation for model comparison  
+- BIC calculation for model comparison  
 - Plotting of noisy data and fitted curves  
 
-## Requirements
-Install dependencies with:
+## Limitations
+- when peaks are overlapping to a significant degree, peak estimates will veer off from the true peak
+- noise estimates are hard coded to a wave from 0 < x < 20, so any data that varies from that window requires a manual change to the code
+- currently only tests BIC against reduced number of peaks, never tests adding peaks to what is found
+- only tests the peaks that are closest together
 
-```bash
-pip install numpy scipy matplotlib
+## To-Do
+- add area and error calculations
