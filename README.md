@@ -1,6 +1,7 @@
 # Multi‑Peak Gaussian Fitting with BIC Model Selection
 
-<img width="640" height="480" alt="curve_fit_ex" src="https://github.com/user-attachments/assets/ba4ae486-addf-47bf-ae0b-8ea0c0fa6d3f" />
+<img width="639" height="462" alt="curve_fit_ex" src="https://github.com/user-attachments/assets/d3e94371-c7d0-4c49-b719-c38beed218fd" />
+
 
 This project performs multi‑peak Gaussian fitting on noisy data using SciPy’s nonlinear least‑squares optimizer. It detects peaks, builds initial parameter guesses, fits one or more Gaussian components, and selects from different peak models using BIC (Bayesian Information Criterion).
 
